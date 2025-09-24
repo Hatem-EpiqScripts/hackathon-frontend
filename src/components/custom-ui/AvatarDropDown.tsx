@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { LogOut, UserPen } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -11,7 +12,24 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import logo from "../../../public/school.png";
+
 export function AvatarDropDown() {
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    try {
+      const res = await fetch("/api/logout", {
+        method: "POST",
+      });
+      if (res.ok) {
+        router.push("/login");
+      } else {
+        console.error("Failed to logout");
+      }
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+  };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -30,7 +48,7 @@ export function AvatarDropDown() {
           <UserPen className="mr-2 h-4 w-4" />
           Profile
         </DropdownMenuItem>
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={handleLogout} className="cursor-pointer">
           <LogOut className="mr-2 h-4 w-4" />
           Logout
         </DropdownMenuItem>

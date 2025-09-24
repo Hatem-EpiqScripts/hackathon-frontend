@@ -96,6 +96,16 @@ export function DataTable<TData, TValue>({
         >
           Previous
         </Button>
+
+        {/* Page indicator */}
+        <span className="text-sm text-muted-foreground">
+          Page{" "}
+          <strong>
+            {table.getState().pagination.pageIndex + 1} of{" "}
+            {table.getPageCount()}
+          </strong>
+        </span>
+
         <Button
           variant="outline"
           size="sm"

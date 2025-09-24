@@ -16,29 +16,19 @@ import Image from "next/image";
 // Menu items.
 const items = [
   {
+    title: "Home",
+    url: "/home",
+    icon: Home,
+  },
+  {
     title: "Users",
-    url: "users",
+    url: "/users",
     icon: Users,
   },
   {
     title: "Courses",
-    url: "#",
+    url: "/courses",
     icon: Book,
-  },
-  {
-    title: "Calendar",
-    url: "#",
-    icon: Book,
-  },
-  {
-    title: "Search",
-    url: "#",
-    icon: Book,
-  },
-  {
-    title: "Settings",
-    url: "#",
-    icon: Settings,
   },
 ];
 
@@ -49,7 +39,7 @@ export function AppSidebar() {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
-              <Link href="/" className="flex items-center gap-2">
+              <Link href="/home" className="flex items-center gap-2">
                 <Image src="/school.png" alt="Logo" width={20} height={20} />
                 <span className="font-bold">My Academy</span>
               </Link>
@@ -66,10 +56,10 @@ export function AppSidebar() {
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a href={item.url}>
+                    <Link href={item.url} className="flex items-center gap-2">
                       <item.icon />
                       <span>{item.title}</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
