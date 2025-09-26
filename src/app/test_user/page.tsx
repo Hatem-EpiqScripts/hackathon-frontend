@@ -1,4 +1,4 @@
-"use client";
+/* "use client";
 
 import { useEffect, useState } from "react";
 import { getCurrentUser } from "@/lib/currentUser";
@@ -27,3 +27,4 @@ export default function TestUserPage() {
     </div>
   );
 }
+ */

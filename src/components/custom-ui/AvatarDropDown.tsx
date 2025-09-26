@@ -1,5 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
+
 import { LogOut, UserPen } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -11,10 +12,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+import { useUser } from "@/lib/UserContext";
 import logo from "../../../public/school.png";
 
 export function AvatarDropDown() {
   const router = useRouter();
+  const { user, loading } = useUser();
 
   const handleLogout = async () => {
     try {
@@ -30,19 +33,22 @@ export function AvatarDropDown() {
       console.error("Logout error:", error);
     }
   };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <Avatar className="h-8 w-8 cursor-pointer">
-          <AvatarImage src={logo.src} />
-          <AvatarFallback>LP</AvatarFallback>
-        </Avatar>
+        <div className="flex items-center gap-2 cursor-pointer">
+          {!loading && user && (
+            <span className="text-sm font-medium">{user.username}</span>
+          )}
+          <Avatar className="h-8 w-8 cursor-pointer">
+            <AvatarImage src={logo.src} />
+            <AvatarFallback>U</AvatarFallback>
+          </Avatar>
+        </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuLabel className="font-normal">
-          {" "}
-          MyAcademy
-        </DropdownMenuLabel>
+        <DropdownMenuLabel className="font-normal">MyAcademy</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
           <UserPen className="mr-2 h-4 w-4" />

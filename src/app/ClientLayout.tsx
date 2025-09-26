@@ -1,8 +1,9 @@
 "use client";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/AppSidebar";
-import { NavBar } from "@/components/NavBar";
+import { AppSidebar } from "@/components/ui/AppSidebar";
+import { NavBar } from "@/components/ui/NavBar";
 import { usePathname } from "next/navigation";
+import { UserProvider } from "@/lib/UserContext";
 
 export function ClientLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -15,12 +16,14 @@ export function ClientLayout({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <SidebarProvider>
-      <AppSidebar />
-      <main className="w-full">
-        <NavBar />
-        <div className="px-4">{children}</div>
-      </main>
-    </SidebarProvider>
+    <UserProvider>
+      <SidebarProvider>
+        <AppSidebar />
+        <main className="w-full">
+          <NavBar />
+          <div className="px-4">{children}</div>
+        </main>
+      </SidebarProvider>
+    </UserProvider>
   );
 }

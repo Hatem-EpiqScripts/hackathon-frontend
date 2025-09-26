@@ -1,4 +1,7 @@
-import { Users, Home, Book, Settings } from "lucide-react";
+"use client";
+import Link from "next/link";
+import Image from "next/image";
+import { Users, Home, Book } from "lucide-react";
 
 import {
   Sidebar,
@@ -11,28 +14,41 @@ import {
   SidebarMenuItem,
   SidebarHeader,
 } from "@/components/ui/sidebar";
-import Link from "next/link";
-import Image from "next/image";
-// Menu items.
-const items = [
-  {
-    title: "Home",
-    url: "/home",
-    icon: Home,
-  },
-  {
-    title: "Users",
-    url: "/users",
-    icon: Users,
-  },
-  {
-    title: "Courses",
-    url: "/courses",
-    icon: Book,
-  },
+
+import { useUser } from "@/lib/UserContext";
+
+const adminItems = [
+  { title: "Home", url: "/home", icon: Home },
+  { title: "Users", url: "/users", icon: Users },
+  { title: "Courses", url: "/courses", icon: Book },
+];
+
+const professorItems = [
+  { title: "Home", url: "/home", icon: Home },
+  { title: "Courses", url: "/courses", icon: Book },
+];
+
+const studentItems = [
+  { title: "Home", url: "/home", icon: Home },
+  { title: "My Courses", url: "/my-courses", icon: Book },
 ];
 
 export function AppSidebar() {
+  const { user, loading } = useUser();
+
+  let items: any[] = [];
+  if (user?.role?.toLowerCase() === "admin") items = adminItems;
+  else if (user?.role?.toLowerCase() === "professor") items = professorItems;
+  else if (user?.role?.toLowerCase() === "student") items = studentItems;
+
+  if (loading) {
+    return (
+      <Sidebar>
+        <SidebarHeader>Loading...</SidebarHeader>
+      </Sidebar>
+    );
+  }
+
   return (
     <Sidebar>
       <SidebarHeader>

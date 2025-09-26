@@ -44,9 +44,6 @@ export default function SignupForm() {
         throw new Error(data.message || "Registration failed");
       }
 
-      // Optionally store token
-      localStorage.setItem("token", data.token);
-
       router.push("/login");
     } catch (err: any) {
       setError(err.message);
