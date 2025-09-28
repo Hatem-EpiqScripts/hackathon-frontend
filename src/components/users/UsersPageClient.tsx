@@ -11,11 +11,9 @@ export default function UsersPageClient() {
   const [loadingUsers, setLoadingUsers] = useState(true);
   const router = useRouter();
 
-  // ✅ get current user from context
   const { user, loading } = useUser();
 
   useEffect(() => {
-    // wait until we know user state
     if (loading) return;
 
     if (!user || user.role !== "admin") {
@@ -40,8 +38,8 @@ export default function UsersPageClient() {
 
         setUsers(
           usersData.map((u: any) => ({
-            id: u.userId, // ✅ adjust to match your backend field
-            userName: u.userName, // ✅ lowercase `username`
+            id: u.userId,
+            userName: u.userName,
             email: u.email,
             phone: u.phone,
             userRole: (u.role ?? "unknown").toLowerCase(),

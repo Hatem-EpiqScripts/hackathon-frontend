@@ -107,7 +107,6 @@ export const courseColumns = ({
         description: course.description,
       });
 
-      // 👇 Local states for row-level loading
       const [saving, setSaving] = useState(false);
       const [deleting, setDeleting] = useState(false);
 
@@ -162,7 +161,6 @@ export const courseColumns = ({
             </DropdownMenuContent>
           </DropdownMenu>
 
-          {/* Edit Dialog */}
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogContent>
               <DialogHeader>
@@ -200,7 +198,6 @@ export const courseColumns = ({
             </DialogContent>
           </Dialog>
 
-          {/* Delete Confirmation */}
           <AlertDialog open={deleteOpen} onOpenChange={setDeleteOpen}>
             <AlertDialogContent>
               <AlertDialogHeader>

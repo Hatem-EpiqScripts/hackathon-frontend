@@ -36,12 +36,10 @@ export default function NewCourseForm() {
 
     setSaving(true);
     try {
-      // determine user id from returned user object (common fields)
       const userId = user.userId;
       if (!userId)
         throw new Error("Cannot determine user id from current user.");
 
-      // fetch professor record by userId
       const profRes = await fetch(`/api/professors/${userId}`, {
         credentials: "include",
       });
@@ -53,7 +51,6 @@ export default function NewCourseForm() {
       const professorId = professor?.id;
       if (!professorId) throw new Error("Professor record missing id");
 
-      // create course
       const res = await fetch(`/api/courses`, {
         method: "POST",
         credentials: "include",
@@ -79,7 +76,6 @@ export default function NewCourseForm() {
     }
   }
 
-  // handle states
   if (loading) return <p>Loading...</p>;
   if (!user) return <p>You must be logged in to create a course.</p>;
   if (user.role !== "professor")

@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import {
   ColumnDef,
   flexRender,
-  getPaginationRowModel,
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
@@ -22,17 +21,24 @@ import {
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  onNextPage?: () => void;
+  onPreviousPage?: () => void;
+  hasNextPage?: boolean;
+  hasPreviousPage?: boolean;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  onNextPage,
+  onPreviousPage,
+  hasNextPage,
+  hasPreviousPage,
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
   });
 
   return (
@@ -91,26 +97,17 @@ export function DataTable<TData, TValue>({
         <Button
           variant="outline"
           size="sm"
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
+          onClick={onPreviousPage}
+          disabled={!hasPreviousPage}
         >
           Previous
         </Button>
 
-        {/* Page indicator */}
-        <span className="text-sm text-muted-foreground">
-          Page{" "}
-          <strong>
-            {table.getState().pagination.pageIndex + 1} of{" "}
-            {table.getPageCount()}
-          </strong>
-        </span>
-
         <Button
           variant="outline"
           size="sm"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
+          onClick={onNextPage}
+          disabled={!hasNextPage}
         >
           Next
         </Button>

@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import { AvatarDropDown } from "../custom-ui/AvatarDropDown";
 
 export function NavBar() {

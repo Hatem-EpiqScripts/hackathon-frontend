@@ -21,7 +21,6 @@ export default function NewCoursePageClient() {
     return <p className="p-6">Loading…</p>;
   }
 
-  // At this point, user is guaranteed to be a professor
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">Create course</h1>
